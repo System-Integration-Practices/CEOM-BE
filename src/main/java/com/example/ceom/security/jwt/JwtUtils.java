@@ -21,13 +21,13 @@ public class JwtUtils {
 
     @Value("${jwtSecret}")
     private String jwtSecret;
-  
+
     @Value("${jwtExpirationMs}")
     private int jwtExpirationMs;
-  
+
     @Value("${jwtCookieName}")
     private String jwtCookie;
-  
+
     public String getJwtFromCookies(HttpServletRequest request) {
       Cookie cookie = WebUtils.getCookie(request, jwtCookie);
       if (cookie != null) {
@@ -36,22 +36,22 @@ public class JwtUtils {
         return null;
       }
     }
-  
+
     public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
       String jwt = generateTokenFromUsername(userPrincipal.getUsername());
       ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
       return cookie;
     }
-  
+
     public ResponseCookie getCleanJwtCookie() {
       ResponseCookie cookie = ResponseCookie.from(jwtCookie, null).path("/api").build();
       return cookie;
     }
-  
+
     public String getUserNameFromJwtToken(String token) {
       return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
-  
+
     public boolean validateJwtToken(String authToken) {
       try {
         Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
@@ -67,7 +67,7 @@ public class JwtUtils {
       } catch (IllegalArgumentException e) {
         logger.error("JWT claims string is empty: {}", e.getMessage());
       }
-  
+
       return false;
     }
 

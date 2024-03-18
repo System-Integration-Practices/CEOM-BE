@@ -11,11 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserInfoResponse {
-    private long id;
+//    private long id;
 
     private String username;
 
-//    private ResponseCookie jwtCookie;
+    private ResponseCookie jwtCookie;
 
 //    private String email;
 //
