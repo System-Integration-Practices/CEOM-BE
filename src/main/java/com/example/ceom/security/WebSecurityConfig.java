@@ -1,5 +1,6 @@
 package com.example.ceom.security;
 
+import com.example.ceom.entity.ERole;
 import com.example.ceom.security.jwt.AuthEntryPointJwt;
 import com.example.ceom.security.jwt.AuthTokenFilter;
 import com.example.ceom.security.service.UserDetailsServiceImpl;
@@ -59,7 +60,7 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/**").hasAuthority(String.valueOf(ERole.ADMIN))
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

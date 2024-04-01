@@ -22,16 +22,16 @@ public class UserController {
     }
 
 
-    @GetMapping("/user")
-    public ResponseEntity<Optional<User>> getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-
-        Optional<User> user = userService.findByUsername(username);
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @GetMapping("/user")
+//    public ResponseEntity<Optional<User>> getCurrentUser() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String username = authentication.getName();
+//
+//        Optional<User> user = userService.findByUsername(username);
+//        if (user != null) {
+//            return ResponseEntity.ok(user);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 }
