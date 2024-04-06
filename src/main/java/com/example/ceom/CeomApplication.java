@@ -1,29 +1,23 @@
 package com.example.ceom;
 
-import com.example.ceom.dto.MergeDto;
-import com.example.ceom.model.mysql.nhanvien;
-import com.example.ceom.model.sqlserver.NHANVIEN;
 import com.example.ceom.repository.mysql.EmployeeRepository;
-import com.example.ceom.repository.mysql.nhanvienRepository;
-import com.example.ceom.repository.mysql.phongbanRepository;
-import com.example.ceom.repository.sqlserver.NHANVIENRepository;
+import com.example.ceom.repository.mysql.PayRateRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.List;
-
 @SpringBootApplication
 @AllArgsConstructor
 public class CeomApplication {
 
 	//    private final EmployeeRepository employeeRepository;
-	private final com.example.ceom.repository.mysql.nhanvienRepository  nhanvienRepository;
-	private final com.example.ceom.repository.mysql.phongbanRepository  phongbanRepository;
+//	private final com.example.ceom.repository.mysql.nhanvienRepository  nhanvienRepository;
+//	private final com.example.ceom.repository.mysql.phongbanRepository  phongbanRepository;
 	private final com.example.ceom.repository.sqlserver.NHANVIENRepository  NHANVIENRepository;
 	private final EmployeeRepository employeeRepository;
+	private final PayRateRepository payRateRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CeomApplication.class, args);
@@ -46,7 +40,7 @@ public class CeomApplication {
 //					.toList();
 //			mergeDtoList.forEach(System.out::println);
 
-			employeeRepository.fetchAll().stream().forEach(System.out::println);
+			payRateRepository.fetchAll().stream().forEach(System.out::println);
 
 		};
 	}
