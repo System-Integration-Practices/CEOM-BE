@@ -61,4 +61,24 @@ public class JobHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Employee_ID",  referencedColumnName = "Employee_ID")
     private Person employeeId;
+
+    @Override
+    public String toString() {
+        return "JobHistory{" +
+                "id=" + id +
+                ", department='" + department + '\'' +
+                ", division='" + division + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", supervisor=" + supervisor +
+                ", jobCategory='" + jobCategory + '\'' +
+                ", location='" + location + '\'' +
+                ", departmentCode=" + departmentCode +
+                ", salaryType=" + salaryType +
+                ", payPeriod='" + payPeriod + '\'' +
+                ", hoursPerWeek=" + hoursPerWeek +
+                ", hazardousTraining=" + hazardousTraining +
+                '}';
+    }
 }

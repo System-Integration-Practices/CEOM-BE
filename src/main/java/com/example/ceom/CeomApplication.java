@@ -2,7 +2,7 @@ package com.example.ceom;
 
 import com.example.ceom.repository.mysql.EmployeeRepository;
 import com.example.ceom.repository.mysql.PayRateRepository;
-import com.example.ceom.repository.sqlserver.PersonRepository;
+import com.example.ceom.repository.sqlserver.*;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,9 +12,20 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 @AllArgsConstructor
 public class CeomApplication {
+	/**
+	 * MySQL
+	 */
 	private final EmployeeRepository employeeRepository;
 	private final PayRateRepository payRateRepository;
+
+	/**
+	 * Sql server
+	 */
 	private final PersonRepository personRepository;
+	private final EmploymentRepository employmentRepository;
+	private final BenefitPlansRepository benefitPlansRepository;
+	private final EmergencyContactsRepository emergencyContactsRepository;
+	private final JobHistoryRepository jobHistoryRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CeomApplication.class, args);
@@ -37,7 +48,7 @@ public class CeomApplication {
 //					.toList();
 //			mergeDtoList.forEach(System.out::println);
 
-			personRepository.findAll().stream().forEach(System.out::println);
+			jobHistoryRepository.findAll().stream().forEach(System.out::println);
 
 		};
 	}

@@ -30,4 +30,14 @@ public class BenefitPlans {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "benefitPlans", orphanRemoval = true)
     private List<Person> personList = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "BenefitPlans{" +
+                "benefitPlanId=" + benefitPlanId +
+                ", planName='" + planName + '\'' +
+                ", deductable=" + deductable +
+                ", percentageCoPay=" + percentageCoPay +
+                '}';
+    }
 }

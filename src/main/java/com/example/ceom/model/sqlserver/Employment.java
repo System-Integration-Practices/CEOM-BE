@@ -38,4 +38,17 @@ public class Employment {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Employee_ID")
     private Person person;
+
+    @Override
+    public String toString() {
+        return "Employment{" +
+                "id=" + id +
+                ", employeeStatus='" + employeeStatus + '\'' +
+                ", hireDate=" + hireDate +
+                ", workersCompCode='" + workersCompCode + '\'' +
+                ", terminationDate=" + terminationDate +
+                ", rehireDate=" + rehireDate +
+                ", lastReviewDate=" + lastReviewDate +
+                '}';
+    }
 }
