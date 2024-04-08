@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.Date;
 
-@Entity(name = "Employment")
+@Entity(name = "Job_History")
 @Getter
 @Setter
 @Builder
@@ -58,7 +58,7 @@ public class JobHistory {
 
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Employee_ID",  referencedColumnName = "Employee_ID")
     private Person employeeId;
 }
