@@ -3,9 +3,11 @@ package com.example.ceom.model.sqlserver;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-@Entity(name = "Job_History")
+@Entity(name = "JOB_HISTORY")
 @Getter
 @Setter
 @Builder
@@ -14,53 +16,38 @@ import java.util.Date;
 public class JobHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "JOB_HISTORY_ID")
     private int id;
 
-    @Column(name = "Department")
+    @Column(name = "DEPARTMENT")
     private String department;
 
-    @Column(name = "Division")
+    @Column(name = "DIVISION")
     private String division;
 
-    @Column(name = "Start_Date")
+    @Column(name = "FROM_DATE")
     private Date startDate;
 
-    @Column(name = "End_Date")
+    @Column(name = "THRU_DATE")
     private Date endDate;
 
-    @Column(name = "Job_Title")
+    @Column(name = "JOB_TITLE")
     private String jobTitle;
 
-    @Column(name = "Supervisor")
+    @Column(name = "SUPERVISOR")
     private int supervisor;
 
-    @Column(name = "Job_Category")
-    private String jobCategory;
-
-    @Column(name = "Location")
+    @Column(name = "LOCATION")
     private String location;
 
-    @Column(name = "Departmen_Code")
-    private int departmentCode;
-
-    @Column(name = "Salary_Type")
-    private int salaryType;
-
-    @Column(name = "Pay_Period")
-    private String payPeriod;
-
-    @Column(name = "Hours_per_Week")
-    private int hoursPerWeek;
-
-    @Column(name = "Hazardous_Training")
-    private boolean hazardousTraining;
-
-
+    @Column(name = "TYPE_OF_WORK")
+    private short typeOfWork;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Employee_ID",  referencedColumnName = "Employee_ID")
-    private Person employeeId;
+    @JoinColumn(name = "EMPLOYMENT_ID",  referencedColumnName = "EMPLOYMENT_ID")
+    private Employment employment;
+
+
 
     @Override
     public String toString() {
@@ -72,13 +59,7 @@ public class JobHistory {
                 ", endDate=" + endDate +
                 ", jobTitle='" + jobTitle + '\'' +
                 ", supervisor=" + supervisor +
-                ", jobCategory='" + jobCategory + '\'' +
                 ", location='" + location + '\'' +
-                ", departmentCode=" + departmentCode +
-                ", salaryType=" + salaryType +
-                ", payPeriod='" + payPeriod + '\'' +
-                ", hoursPerWeek=" + hoursPerWeek +
-                ", hazardousTraining=" + hazardousTraining +
                 '}';
     }
 }
