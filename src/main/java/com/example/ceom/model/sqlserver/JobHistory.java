@@ -3,9 +3,11 @@ package com.example.ceom.model.sqlserver;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-@Entity(name = "Employment")
+@Entity(name = "JOB_HISTORY")
 @Getter
 @Setter
 @Builder
@@ -14,51 +16,50 @@ import java.util.Date;
 public class JobHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "JOB_HISTORY_ID")
     private int id;
 
-    @Column(name = "Department")
+    @Column(name = "DEPARTMENT")
     private String department;
 
-    @Column(name = "Division")
+    @Column(name = "DIVISION")
     private String division;
 
-    @Column(name = "Start_Date")
+    @Column(name = "FROM_DATE")
     private Date startDate;
 
-    @Column(name = "End_Date")
+    @Column(name = "THRU_DATE")
     private Date endDate;
 
-    @Column(name = "Job_Title")
+    @Column(name = "JOB_TITLE")
     private String jobTitle;
 
-    @Column(name = "Supervisor")
+    @Column(name = "SUPERVISOR")
     private int supervisor;
 
-    @Column(name = "Job_Category")
-    private String jobCategory;
-
-    @Column(name = "Location")
+    @Column(name = "LOCATION")
     private String location;
 
-    @Column(name = "Departmen_Code")
-    private int departmentCode;
+    @Column(name = "TYPE_OF_WORK")
+    private short typeOfWork;
 
-    @Column(name = "Salary_Type")
-    private int salaryType;
-
-    @Column(name = "Pay_Period")
-    private String payPeriod;
-
-    @Column(name = "Hours_per_Week")
-    private int hoursPerWeek;
-
-    @Column(name = "Hazardous_Training")
-    private boolean hazardousTraining;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "EMPLOYMENT_ID",  referencedColumnName = "EMPLOYMENT_ID")
+    private Employment employment;
 
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Employee_ID",  referencedColumnName = "Employee_ID")
-    private Person employeeId;
+    @Override
+    public String toString() {
+        return "JobHistory{" +
+                "id=" + id +
+                ", department='" + department + '\'' +
+                ", division='" + division + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", supervisor=" + supervisor +
+                ", location='" + location + '\'' +
+                '}';
+    }
 }

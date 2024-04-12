@@ -1,6 +1,5 @@
 package com.example.ceom.configuration;
 
-import com.example.ceom.model.sqlserver.NHANVIEN;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -38,7 +37,7 @@ public class SqlServerDataSourceConfiguration {
             EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(sqlserverDataSource())
-                .packages(NHANVIEN.class)
+                .packages("com.example.ceom.model.sqlserver")
                 .build();
     }
 

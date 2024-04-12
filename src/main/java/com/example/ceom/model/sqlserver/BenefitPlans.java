@@ -4,10 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-@Entity(name = "Benefit_Plans")
+@Entity(name = "BENEFIT_PLANS")
 @Getter
 @Setter
 @Builder
@@ -16,18 +15,28 @@ import java.util.List;
 public class BenefitPlans {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Benefit_Plan_ID")
+    @Column(name = "BENEFIT_PLANS_ID")
     private int benefitPlanId;
 
-    @Column(name = "Plan_Name")
+    @Column(name = "PLAN_NAME")
     private String planName;
 
-    @Column(name = "Deductable")
+    @Column(name = "DEDUCTABLE")
     private int deductable;
 
-    @Column(name = "Percentage_CoPay")
+    @Column(name = "PERCENTAGE_COPAY")
     private int percentageCoPay;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "benefitPlans", orphanRemoval = true)
-    private List<Person> personList = new ArrayList<>();
+    private List<Personal> personList = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "BenefitPlans{" +
+                "benefitPlanId=" + benefitPlanId +
+                ", planName='" + planName + '\'' +
+                ", deductable=" + deductable +
+                ", percentageCoPay=" + percentageCoPay +
+                '}';
+    }
 }

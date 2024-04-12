@@ -3,7 +3,9 @@ package com.example.ceom.model.sqlserver;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity(name = "Employment")
@@ -14,28 +16,38 @@ import java.util.Date;
 @NoArgsConstructor
 public class Employment {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "EMPLOYMENT_ID")
+    private int employmentId;
 
-    @Column(name = "Employment_Status")
-    private String employeeStatus;
+    @Column(name = "EMPLOYMENT_CODE")
+    private String employmentCode;
 
-    @Column(name = "Hire_Date")
-    private Date hireDate;
+    @Column(name = "EMPLOYMENT_STATUS")
+    private String employmentStatus;
 
-    @Column(name = "Workers_Comp_Code")
+    @Column(name = "HIRE_DATE_FOR_WORKING")
+    private Date hireDateForWorking;
+
+    @Column(name = "WORKERS_COMP_CODE")
     private String workersCompCode;
 
-    @Column(name = "Termination_Date")
+    @Column(name = "TERMINATION_DATE")
     private Date terminationDate;
 
-    @Column(name = "Rehire_Date")
-    private Date rehireDate;
+    @Column(name = "REHIRE_DATE_FOR_WORKING")
+    private Date rehireDateForWorking;
 
-    @Column(name = "Last_Review_Date")
+    @Column(name = "LAST_REVIEW_DATE")
     private Date lastReviewDate;
 
-    @MapsId
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Employee_ID")
-    private Person person;
+    @Column(name = "NUMBER_DAYS_REQUIREMENT_OF_WORKING_PER_MONTH")
+    private int daysWorkingPerMonth;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PERSONAL_ID",  referencedColumnName = "PERSONAL_ID")
+    private Personal personal;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employment", orphanRemoval = true)
+    private List<JobHistory> jobHistories = new ArrayList<>();
 }
