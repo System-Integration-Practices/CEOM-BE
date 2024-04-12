@@ -7,12 +7,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
 import javax.crypto.SecretKey;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 
 @Component
@@ -73,13 +79,18 @@ public class JwtUtils {
 
     public static String generateTokenFromUsername(String username, String authorities) {
         SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime());
 
         String token = Jwts.builder()
+                .setSubject(username)
                 .claim("name", username)
                 .claim("roles", authorities)
+                .setExpiration(expiryDate)
                 .signWith(secretKey, SignatureAlgorithm.HS512)
                 .compact();
 
         return token;
     }
+
 }

@@ -57,7 +57,6 @@ public class AuthController {
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .body(new UserInfoResponse(userDetails.getUsername(),jwtCookie, roles));
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/hello")
     public String hello(){
         return "Hello World!";
