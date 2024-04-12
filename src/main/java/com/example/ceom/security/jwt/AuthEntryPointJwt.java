@@ -1,41 +1,51 @@
 package com.example.ceom.security.jwt;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
+import com.example.ceom.security.service.UserDetailsImpl;
+import org.springframework.http.ResponseCookie;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-@Component
-public class AuthEntryPointJwt implements AuthenticationEntryPoint  {
+public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
+  private final AuthenticationManager authenticationManager;
+  private final JwtUtils jwtUtils;
+
+  public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+    this.authenticationManager = authenticationManager;
+    this.jwtUtils = jwtUtils;
+  }
 
   @Override
-  public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-      throws IOException, ServletException {
-    logger.error("Unauthorized error: {}", authException.getMessage());
-
-    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
-    final Map<String, Object> body = new HashMap<>();
-    body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-    body.put("error", "Unauthorized");
-    body.put("message", authException.getMessage());
-    body.put("path", request.getServletPath());
-
-    final ObjectMapper mapper = new ObjectMapper();
-    mapper.writeValue(response.getOutputStream(), body);
+  public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+          throws AuthenticationException {
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+    return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
   }
-    
+
+  @Override
+  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                          FilterChain chain, Authentication authResult)
+          throws IOException, ServletException {
+    UserDetails userDetails = (UserDetails) authResult.getPrincipal();
+
+    // Tạo JWT
+    String token = jwtUtils.generateTokenFromUsername(userDetails.getUsername(), String.valueOf(userDetails.getAuthorities()));
+
+    // Tạo và gửi cookie JWT
+    ResponseCookie jwtCookie = jwtUtils.generateJwtCookie((UserDetailsImpl) userDetails);
+    response.addHeader("Set-Cookie", jwtCookie.toString());
+
+    response.addHeader("Authorization", "Bearer " + token);
+  }
 }
