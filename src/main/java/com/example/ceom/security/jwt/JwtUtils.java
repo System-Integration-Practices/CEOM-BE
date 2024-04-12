@@ -73,10 +73,11 @@ public class JwtUtils {
 
     public static String generateTokenFromUsername(String username, String authorities) {
         SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-
         String token = Jwts.builder()
+                .setSubject(username)
                 .claim("name", username)
                 .claim("roles", authorities)
+                .setExpiration(new Date())
                 .signWith(secretKey, SignatureAlgorithm.HS512)
                 .compact();
 
