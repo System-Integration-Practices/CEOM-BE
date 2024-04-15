@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.Date;
 
-@Entity(name = "Emergency_Contacts")
+@Entity(name = "EMPLOYMENT_WORKING_TIME")
 @Getter
 @Setter
 @Builder

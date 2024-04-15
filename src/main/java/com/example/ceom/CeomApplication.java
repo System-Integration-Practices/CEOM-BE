@@ -24,7 +24,7 @@ public class CeomApplication {
 	private final PersonRepository personRepository;
 	private final EmploymentRepository employmentRepository;
 	private final BenefitPlansRepository benefitPlansRepository;
-	private final EmergencyContactsRepository emergencyContactsRepository;
+	private final EmploymentWorkingTimeRepository employmentWorkingTimeRepository;
 	private final JobHistoryRepository jobHistoryRepository;
 
 	public static void main(String[] args) {
@@ -48,7 +48,7 @@ public class CeomApplication {
 //					.toList();
 //			mergeDtoList.forEach(System.out::println);
 
-			employeeRepository.findAll().stream().forEach(System.out::println);
+			personRepository.findAll().stream().forEach(System.out::println);
 			System.out.println("Hello Kienroro");
 
 		};
