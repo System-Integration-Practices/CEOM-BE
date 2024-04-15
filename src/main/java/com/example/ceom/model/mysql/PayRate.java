@@ -50,7 +50,6 @@ public class PayRate {
                 ", payType=" + payType +
                 ", payAmount=" + payAmount +
                 ", ptLevelC=" + ptLevelC +
-                ", employees=" + employees +
                 '}';
     }
 }

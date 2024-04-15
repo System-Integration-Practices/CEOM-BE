@@ -48,7 +48,8 @@ public class CeomApplication {
 //					.toList();
 //			mergeDtoList.forEach(System.out::println);
 
-			personRepository.findAll().stream().forEach(System.out::println);
+			employeeRepository.fetchAll().stream().forEach(System.out::println);
+//			System.out.println(employeeRepository.fetchById(1));
 			System.out.println("Hello Kienroro");
 
 		};

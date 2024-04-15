@@ -56,6 +56,7 @@ public class Employee {
                 ", paidLastYear=" + paidLastYear +
                 ", paidToDate=" + paidToDate +
                 ", payRate='" + payRate + '\'' +
+                ", payRates=" + payRates +
                 ", ssn=" + ssn +
                 ", vacationDays=" + vacationDays +
                 '}';
