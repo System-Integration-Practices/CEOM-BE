@@ -1,5 +1,6 @@
-package com.example.ceom.entity;
+package com.example.ceom.entity.mysql;
 
+import com.example.ceom.entity.mysql.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

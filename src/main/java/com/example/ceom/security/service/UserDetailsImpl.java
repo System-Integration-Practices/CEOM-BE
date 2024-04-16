@@ -1,6 +1,6 @@
 package com.example.ceom.security.service;
 
-import com.example.ceom.entity.User;
+import com.example.ceom.entity.mysql.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;

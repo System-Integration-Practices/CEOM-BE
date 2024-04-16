@@ -1,6 +1,6 @@
 package com.example.ceom.security;
 
-import com.example.ceom.entity.ERole;
+import com.example.ceom.entity.mysql.ERole;
 import com.example.ceom.security.jwt.AuthEntryPointJwt;
 import com.example.ceom.security.jwt.AuthTokenFilter;
 import com.example.ceom.security.service.UserDetailsServiceImpl;

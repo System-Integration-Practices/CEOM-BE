@@ -1,7 +1,8 @@
 package com.example.ceom.security.service;
 
-import com.example.ceom.entity.User;
-import com.example.ceom.repository.UserRepository;
+
+import com.example.ceom.entity.mysql.User;
+import com.example.ceom.repository.mysql.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
         // if(user != null && user.isEnabled()){
 

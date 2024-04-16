@@ -1,9 +1,9 @@
-package com.example.ceom.entity;
+package com.example.ceom.entity.mysql;
+
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Data
 @NoArgsConstructor

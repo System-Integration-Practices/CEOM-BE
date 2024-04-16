@@ -1,7 +1,7 @@
 package com.example.ceom.service.impl;
 
-import com.example.ceom.entity.User;
-import com.example.ceom.repository.UserRepository;
+import com.example.ceom.entity.mysql.User;
+import com.example.ceom.repository.mysql.UserRepository;
 import com.example.ceom.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
