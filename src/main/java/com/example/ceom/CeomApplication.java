@@ -48,9 +48,8 @@ public class CeomApplication {
 //					.toList();
 //			mergeDtoList.forEach(System.out::println);
 
-			employeeRepository.findAll().stream().forEach(System.out::println);
+			payRateRepository.findAll().stream().forEach(System.out::println);
 			System.out.println("Hello Kienroro");
-
 		};
 	}
 

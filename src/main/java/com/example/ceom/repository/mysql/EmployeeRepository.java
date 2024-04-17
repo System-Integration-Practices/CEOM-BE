@@ -1,5 +1,6 @@
 package com.example.ceom.repository.mysql;
 
+import com.example.ceom.dto.IEmployeeDTO;
 import com.example.ceom.model.mysql.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,4 +12,10 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query("SELECT e FROM employee e JOIN FETCH e.idEmployee")
     List<Employee> fetchAll();
+
+    @Query(value = "SELECT e.`idEmployee`, p.`Value`\n" +
+            "FROM `employee` as e \n" +
+            "JOIN `pay rates` as p ON\n" +
+            "e.`Pay Rates_idPay Rates` = p.`idPay Rates`;", nativeQuery = true)
+    List<IEmployeeDTO> findAllEmployeeDTO();
 }
