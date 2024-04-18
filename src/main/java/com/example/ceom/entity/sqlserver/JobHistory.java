@@ -45,19 +45,4 @@ public class JobHistory {
     @JoinColumn(name = "EMPLOYMENT_ID",  referencedColumnName = "EMPLOYMENT_ID")
     private Employment employment;
 
-
-
-    @Override
-    public String toString() {
-        return "JobHistory{" +
-                "id=" + id +
-                ", department='" + department + '\'' +
-                ", division='" + division + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", jobTitle='" + jobTitle + '\'' +
-                ", supervisor=" + supervisor +
-                ", location='" + location + '\'' +
-                '}';
-    }
 }

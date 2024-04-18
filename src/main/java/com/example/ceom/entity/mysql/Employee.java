@@ -40,22 +40,6 @@ public class Employee {
 
     @Column(name = "SSN")
     private double ssn;
-//
     @Column(name = "Vacation Days")
     private int vacationDays;
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "employeeNumber=" + employeeNumber +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", idEmployee=" + idEmployee +
-                ", paidLastYear=" + paidLastYear +
-                ", paidToDate=" + paidToDate +
-                ", payRate='" + payRate + '\'' +
-                ", ssn=" + ssn +
-                ", vacationDays=" + vacationDays +
-                '}';
-    }
 }

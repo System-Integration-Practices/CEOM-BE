@@ -76,27 +76,4 @@ public class Personal {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "BENEFIT_PLAN_ID",  referencedColumnName = "BENEFIT_PLANS_ID")
     private BenefitPlans benefitPlans;
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "employeeId=" + personalId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", middleInitial='" + middleInitial + '\'' +
-                ", address1='" + address1 + '\'' +
-                ", address2='" + address2 + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + country + '\'' +
-                ", zip=" + zip +
-                ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", ssn='" + ssn + '\'' +
-                ", driversLicense='" + driversLicense + '\'' +
-                ", maritalStatus='" + maritalStatus + '\'' +
-                ", gender=" + gender +
-                ", shareholderStatus=" + shareholderStatus +
-                ", ethnicity='" + ethnicity + '\'' +
-                '}';
-    }
 }
