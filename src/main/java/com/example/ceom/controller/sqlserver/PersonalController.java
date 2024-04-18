@@ -1,4 +1,4 @@
-package com.example.ceom.controller;
+package com.example.ceom.controller.sqlserver;
 
 import com.example.ceom.entity.sqlserver.Personal;
 import com.example.ceom.model.reponse.MessageResponse;
@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/personal")
+@RequestMapping("api/sqlserver/personal")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class PersonalController {
     @Autowired
