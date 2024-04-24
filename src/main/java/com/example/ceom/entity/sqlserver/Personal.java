@@ -70,8 +70,8 @@ public class Personal {
     @Column(name = "SHAREHOLDER_STATUS")
     private boolean shareholderStatus;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", orphanRemoval = true)
-    private List<Employment> employmentList = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", orphanRemoval = true)
+//    private List<EmploymentService> employmentList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "BENEFIT_PLAN_ID",  referencedColumnName = "BENEFIT_PLANS_ID")

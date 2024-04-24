@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "BENEFIT_PLANS")
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,6 +26,6 @@ public class BenefitPlans {
     @Column(name = "PERCENTAGE_COPAY")
     private int percentageCoPay;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "benefitPlans", orphanRemoval = true)
-    private List<Personal> personList = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "benefitPlans", orphanRemoval = true)
+//    private List<Personal> personList = new ArrayList<>();
 }

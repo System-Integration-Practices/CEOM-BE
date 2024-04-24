@@ -15,6 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreatePersonalRequest {
+    private int personalId;
+
     private String firstName;
 
     private String lastName;
@@ -49,5 +51,7 @@ public class CreatePersonalRequest {
 
     private boolean shareholderStatus;
 
-    private List<Employment> employmentList;
+//    private List<EmploymentService> employmentList;
+
+    private BenefitPlans benefitPlans;
 }

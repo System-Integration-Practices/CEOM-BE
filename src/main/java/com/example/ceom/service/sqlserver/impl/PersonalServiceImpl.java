@@ -34,7 +34,8 @@ public class PersonalServiceImpl implements PersonalService {
         personal.setMaritalStatus(request.getMaritalStatus());
         personal.setEthnicity(request.getEthnicity());
         personal.setShareholderStatus(request.isShareholderStatus());
-        personal.setEmploymentList(request.getEmploymentList());
+//        personal.setEmploymentList(request.getEmploymentList());
+        personal.setBenefitPlans(request.getBenefitPlans());
         personRepository.save(personal);
         return personal;
     }
@@ -65,7 +66,8 @@ public class PersonalServiceImpl implements PersonalService {
         personal.setMaritalStatus(request.getMaritalStatus());
         personal.setEthnicity(request.getEthnicity());
         personal.setShareholderStatus(request.isShareholderStatus());
-        personal.setEmploymentList(request.getEmploymentList());
+        personal.setBenefitPlans(request.getBenefitPlans());
+//        personal.setEmploymentList(request.getEmploymentList());
         personRepository.save(personal);
         return personal;
     }

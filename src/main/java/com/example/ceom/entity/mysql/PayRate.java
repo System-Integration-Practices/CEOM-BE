@@ -40,17 +40,4 @@ public class PayRate {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "payRates", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Employee> employees = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "PayRate{" +
-                "idPayRate=" + idPayRate +
-                ", payRateName='" + payRateName + '\'' +
-                ", value=" + value +
-                ", taxPercentage=" + taxPercentage +
-                ", payType=" + payType +
-                ", payAmount=" + payAmount +
-                ", ptLevelC=" + ptLevelC +
-                ", employees=" + employees +
-                '}';
-    }
 }
