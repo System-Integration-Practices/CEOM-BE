@@ -1,5 +1,6 @@
 package com.example.ceom;
 
+import com.example.ceom.model.mysql.Employee;
 import com.example.ceom.repository.mysql.EmployeeRepository;
 import com.example.ceom.repository.mysql.PayRateRepository;
 import com.example.ceom.repository.sqlserver.*;
@@ -48,8 +49,18 @@ public class CeomApplication {
 //					.toList();
 //			mergeDtoList.forEach(System.out::println);
 
-			employeeRepository.fetchAll().stream().forEach(System.out::println);
+//			payRateRepository.fetchAll().stream().forEach(System.out::println);
 //			System.out.println(employeeRepository.fetchById(1));
+			System.out.println(payRateRepository.findById(1));
+			employeeRepository.save(Employee.builder()
+					.idEmployee(1)
+							.lastName("roro123")
+							.firstName("Kien")
+							.ssn(1234)
+							.payRates(payRateRepository.findById(1).get())
+							.paidLastYear(12)
+							.paidToDate(20)
+					.build());
 			System.out.println("Hello Kienroro");
 
 		};

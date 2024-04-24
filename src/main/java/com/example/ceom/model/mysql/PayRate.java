@@ -37,7 +37,7 @@ public class PayRate {
     @Column(name = "PT - Level C")
     private int ptLevelC;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "payRates", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "payRates", orphanRemoval = true)
     private List<Employee> employees = new ArrayList<>();
 
     @Override
