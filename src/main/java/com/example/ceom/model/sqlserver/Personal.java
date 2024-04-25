@@ -2,6 +2,7 @@ package com.example.ceom.model.sqlserver;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.Date;
