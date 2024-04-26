@@ -35,7 +35,7 @@ public class JobHistory {
     private String jobTitle;
 
     @Column(name = "SUPERVISOR")
-    private int supervisor;
+    private String supervisor;
 
     @Column(name = "LOCATION")
     private String location;
