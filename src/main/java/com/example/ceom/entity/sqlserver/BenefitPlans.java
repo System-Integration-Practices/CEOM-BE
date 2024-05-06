@@ -1,6 +1,6 @@
 package com.example.ceom.entity.sqlserver;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;

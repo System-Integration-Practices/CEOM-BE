@@ -1,7 +1,9 @@
 package com.example.ceom.entity.mysql;
 
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class PayRate {
     private int ptLevelC;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "payRates", orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Employee> employees = new ArrayList<>();
 
 }

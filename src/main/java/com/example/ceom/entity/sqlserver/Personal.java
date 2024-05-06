@@ -2,7 +2,7 @@ package com.example.ceom.entity.sqlserver;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

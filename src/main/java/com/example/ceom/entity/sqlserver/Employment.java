@@ -1,7 +1,6 @@
 package com.example.ceom.entity.sqlserver;
 
-import javax.persistence.*;
-import lombok.*;
+import jakarta.persistence.*;import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,14 +8,13 @@ import java.util.List;
 
 
 @Entity(name = "Employment")
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLOYMENT_ID")
     private int employmentId;
 

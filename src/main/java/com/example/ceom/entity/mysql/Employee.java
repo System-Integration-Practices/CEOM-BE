@@ -1,15 +1,15 @@
 package com.example.ceom.entity.mysql;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity(name = "employee")
-@Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@Data
+@Data
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,11 +35,13 @@ public class Employee {
     private String payRate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Pay Rates_idPay Rates",  referencedColumnName = "idPay Rates")
+    @JsonBackReference
+    @JoinColumn(name = "Pay Rates_idPay Rates", referencedColumnName = "idPay Rates")
     private PayRate payRates;
 
     @Column(name = "SSN")
     private double ssn;
+
     @Column(name = "Vacation Days")
     private int vacationDays;
 }
