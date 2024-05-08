@@ -25,7 +25,11 @@ public class PersonalServiceImpl implements PersonalService {
     }
 
     @Override
-    public List<IPersonalDTO> findAll() {
-        return personRepository.getAllPersonal();
+    public Page<IPersonalDTO> findAll(String find, Pageable pageable) {
+        return personRepository.getAllPersonal(find, pageable);
+    }
+
+    public List<Personal> getAll(){
+        return personRepository.findAll();
     }
 }

@@ -5,23 +5,23 @@ import com.example.ceom.dto.IEmployeeDTO;
 import com.example.ceom.dto.IPersonalDTO;
 import com.example.ceom.dto.PersonalDTO;
 import com.example.ceom.model.sqlserver.Personal;
+import com.example.ceom.response.MapAndTotalPageResponse;
 import com.example.ceom.service.mysql.EmployeeMySQLService;
 import com.example.ceom.service.sqlserver.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/sqlserver/personal")
 public class PersonalController {
     @Autowired
@@ -31,7 +31,7 @@ public class PersonalController {
 
     @GetMapping("/list-pagination")
     public ResponseEntity<?> getAllListPersonalPagination(@RequestParam(defaultValue = "") String find,
-                                                @RequestParam(value = "page") Integer page) {
+                                                          @RequestParam(value = "page") Integer page) {
         Page<IPersonalDTO> personalList = personalService.findAllWithPagination(find, PageRequest.of(page, 5));
         if (personalList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -41,13 +41,15 @@ public class PersonalController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<?> getAllListPersonal() {
-        List<IPersonalDTO> personals = personalService.findAll();
-        if (personals.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<MapAndTotalPageResponse> getAllListPersonal(@RequestParam(defaultValue = "") String find, @RequestParam(defaultValue = "0") int page,
+                                                                      @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<IPersonalDTO> personalPage = personalService.findAll(find, pageable);
+        if (personalPage.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        List<IPersonalDTO> personals = personalPage.getContent();
         List<IEmployeeDTO> employeeDTOList = employeeMySQLService.findAll();
-
         Map<Integer, EmployeeDTO> employeeDTOMap = new HashMap<>();
 
         for (IPersonalDTO person : personals) {
@@ -72,6 +74,12 @@ public class PersonalController {
             }
         }
 
-        return new ResponseEntity<Map<Integer, EmployeeDTO>>(employeeDTOMap, HttpStatus.OK);
+        MapAndTotalPageResponse response = new MapAndTotalPageResponse(employeeDTOMap, personalPage.getTotalPages());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all")
+    public List<Personal> getAllPersonal() {
+        return this.personalService.getAll();
     }
 }

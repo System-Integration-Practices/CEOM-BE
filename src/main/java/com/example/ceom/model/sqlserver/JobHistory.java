@@ -1,5 +1,6 @@
 package com.example.ceom.model.sqlserver;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,7 +36,7 @@ public class JobHistory {
     private String jobTitle;
 
     @Column(name = "SUPERVISOR")
-    private int supervisor;
+    private String supervisor;
 
     @Column(name = "LOCATION")
     private String location;
@@ -43,8 +44,9 @@ public class JobHistory {
     @Column(name = "TYPE_OF_WORK")
     private short typeOfWork;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EMPLOYMENT_ID",  referencedColumnName = "EMPLOYMENT_ID")
+    @JsonBackReference
     private Employment employment;
 
 

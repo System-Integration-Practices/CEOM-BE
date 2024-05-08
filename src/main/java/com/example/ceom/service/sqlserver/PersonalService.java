@@ -11,5 +11,7 @@ import java.util.List;
 
 public interface PersonalService {
     Page<IPersonalDTO> findAllWithPagination(String find, Pageable pageable);
-    List<IPersonalDTO> findAll();
+    Page<IPersonalDTO> findAll(String find, Pageable pageable);
+
+    List<Personal> getAll();
 }

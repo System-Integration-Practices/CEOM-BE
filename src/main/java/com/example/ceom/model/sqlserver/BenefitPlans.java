@@ -1,5 +1,6 @@
 package com.example.ceom.model.sqlserver;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,7 +28,8 @@ public class BenefitPlans {
     @Column(name = "PERCENTAGE_COPAY")
     private int percentageCoPay;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "benefitPlans", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "benefitPlans", orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<Personal> personList = new ArrayList<>();
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.ceom.model.sqlserver;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -44,10 +45,11 @@ public class Employment {
     @Column(name = "NUMBER_DAYS_REQUIREMENT_OF_WORKING_PER_MONTH")
     private int daysWorkingPerMonth;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PERSONAL_ID",  referencedColumnName = "PERSONAL_ID")
+    @JsonBackReference
     private Personal personal;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employment", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employment", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<JobHistory> jobHistories = new ArrayList<>();
 }

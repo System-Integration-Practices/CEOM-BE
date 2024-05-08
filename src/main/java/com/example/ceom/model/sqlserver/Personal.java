@@ -1,5 +1,6 @@
 package com.example.ceom.model.sqlserver;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -70,7 +71,7 @@ public class Personal {
     @Column(name = "SHAREHOLDER_STATUS")
     private boolean shareholderStatus;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Employment> employmentList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)

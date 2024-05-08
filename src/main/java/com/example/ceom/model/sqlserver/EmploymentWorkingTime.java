@@ -28,7 +28,7 @@ public class EmploymentWorkingTime {
     @Column(name = "TOTAL_NUMBER_VACATION_WORKING_DAYS_PER_MONTH")
     private int daysVacation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EMPLOYMENT_ID",  referencedColumnName = "EMPLOYMENT_ID")
     private Employment employment;
 }
