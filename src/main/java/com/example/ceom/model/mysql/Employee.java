@@ -42,7 +42,7 @@ public class Employee {
 
     @Column(name = "SSN")
     private double ssn;
-//
+
     @Column(name = "Vacation Days")
     private int vacationDays;
 
