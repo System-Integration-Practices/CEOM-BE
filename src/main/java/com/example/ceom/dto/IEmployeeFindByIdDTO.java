@@ -1,8 +1,7 @@
 package com.example.ceom.dto;
 
-public interface IEmployeeDTO {
+public interface IEmployeeFindByIdDTO {
     int getIdEmployee();
-    int getPayAmount();
     int getEmployeeNumber();
     String getFirstName();
     String getLastName();
@@ -11,5 +10,5 @@ public interface IEmployeeDTO {
     String getPayRate();
     double getSsn();
     int getVacationDays();
-    int getIdPayRate();
+    int getIdPayRates();
 }

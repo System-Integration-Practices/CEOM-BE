@@ -1,6 +1,7 @@
 package com.example.ceom.model.request;
 
 import com.example.ceom.dto.EmployeeDTO;
+import com.example.ceom.dto.EmploymentDTO;
 import com.example.ceom.dto.PersonalDTO;
 import com.example.ceom.entity.mysql.Employee;
 import com.example.ceom.entity.sqlserver.Employment;
@@ -18,5 +19,5 @@ public class CreateEmployeeIntegration {
 //    private double ssn;
     private PersonalDTO personal;
     private EmployeeDTO employee;
-    private Employment employment;
+    private EmploymentDTO employment;
 }

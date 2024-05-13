@@ -1,5 +1,6 @@
 package com.example.ceom.service.sqlserver.impl;
 
+import com.example.ceom.dto.IEmploymentDTO;
 import com.example.ceom.entity.sqlserver.Employment;
 import com.example.ceom.repository.mysql.EmployeeRepository;
 import com.example.ceom.repository.sqlserver.EmploymentRepository;
@@ -17,5 +18,10 @@ public class EmploymentServiceImpl implements EmploymentService {
     @Override
     public List<Employment> findAll() {
         return employmentRepository.findAll();
+    }
+
+    @Override
+    public IEmploymentDTO findEmploymentDTOById(int id) {
+        return employmentRepository.findEmploymentDTOById(id);
     }
 }

@@ -1,9 +1,6 @@
 package com.example.ceom.controller.sqlserver;
 
-import com.example.ceom.dto.EmployeeDTO;
-import com.example.ceom.dto.IEmployeeDTO;
-import com.example.ceom.dto.IPersonalDTO;
-import com.example.ceom.dto.ListPersonDTO;
+import com.example.ceom.dto.*;
 import com.example.ceom.entity.sqlserver.Personal;
 import com.example.ceom.model.reponse.MapAndTotalPageResponse;
 import com.example.ceom.model.reponse.MessageResponse;
@@ -81,19 +78,27 @@ public class PersonalController {
             personDTO.setPLAN_NAME(person.getPLAN_NAME());
             personDTO.setTOTAL_NUMBER_VACATION_WORKING_DAYS_PER_MONTH(person.getTOTAL_NUMBER_VACATION_WORKING_DAYS_PER_MONTH());
             personDTO.setEmployeeNumber(person.getEMPLOYMENT_ID());
-//            personDTO.setIdEmployee(person.getEMPLOYMENT_ID());
             personDTO.setEMPLOYMENT_ID(person.getEMPLOYMENT_ID());
             listPersonDTOMap.put(person.getEMPLOYMENT_ID(), personDTO);
         }
 
         for (IEmployeeDTO payAmount : employeeDTOList) {
-            ListPersonDTO personDTO = listPersonDTOMap.get(payAmount.getIdEmployee());
+            ListPersonDTO personDTO = listPersonDTOMap.get(payAmount.getEmployeeNumber());
             if (personDTO != null) {
-                personDTO.setPayAmount(payAmount.getValue());
+                personDTO.setPayAmount(payAmount.getPayAmount());
             }
         }
 
         MapAndTotalPageResponse response = new MapAndTotalPageResponse(listPersonDTOMap, personalPage.getTotalPages());
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/getPersonalDTOById/{id}")
+    public ResponseEntity<IPersonalFindByIdDTO> findByIdPersonalDTO(@PathVariable int id) {
+        IPersonalFindByIdDTO personalDTO = personalService.findByIdDTO(id);
+        if (personalDTO == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(personalDTO, HttpStatus.OK);
     }
 }

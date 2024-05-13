@@ -71,7 +71,7 @@ public class Personal {
     private boolean shareholderStatus;
 
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", orphanRemoval = true)
-//    private List<EmploymentService> employmentList = new ArrayList<>();
+//    private List<Employment> employmentList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "BENEFIT_PLAN_ID",  referencedColumnName = "BENEFIT_PLANS_ID")

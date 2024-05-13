@@ -1,6 +1,7 @@
 package com.example.ceom.service.sqlserver.impl;
 
 import com.example.ceom.dto.IPersonalDTO;
+import com.example.ceom.dto.IPersonalFindByIdDTO;
 import com.example.ceom.entity.sqlserver.BenefitPlans;
 import com.example.ceom.entity.sqlserver.Personal;
 import com.example.ceom.exception.NotFoundException;
@@ -93,5 +94,10 @@ public class PersonalServiceImpl implements PersonalService {
     @Override
     public Page<IPersonalDTO> findAll(String find, Pageable pageable) {
         return personRepository.getAllPersonal(find, pageable);
+    }
+
+    @Override
+    public IPersonalFindByIdDTO findByIdDTO(int id) {
+        return personRepository.findPersonalDTOById(id);
     }
 }

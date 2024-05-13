@@ -1,6 +1,7 @@
 package com.example.ceom.service.mysql.impl;
 
 import com.example.ceom.dto.IEmployeeDTO;
+import com.example.ceom.dto.IEmployeeFindByIdDTO;
 import com.example.ceom.entity.mysql.Employee;
 import com.example.ceom.entity.sqlserver.Personal;
 import com.example.ceom.repository.mysql.EmployeeRepository;
@@ -29,5 +30,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<IEmployeeDTO> findAllDTO() {
         return employeeRepository.findAllEmployeeDTO();
+    }
+
+    @Override
+    public IEmployeeFindByIdDTO findEmployeeDTO(int id) {
+        return employeeRepository.findEmployeeDTOById(id);
     }
 }

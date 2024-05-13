@@ -1,6 +1,7 @@
 package com.example.ceom.service.sqlserver;
 
 import com.example.ceom.dto.IPersonalDTO;
+import com.example.ceom.dto.IPersonalFindByIdDTO;
 import com.example.ceom.entity.sqlserver.Personal;
 import com.example.ceom.model.request.CreatePersonalRequest;
 import org.springframework.data.domain.Page;
@@ -15,4 +16,5 @@ public interface PersonalService {
 
     List<Personal> findAll();
     Page<IPersonalDTO> findAll(String find, Pageable pageable);
+    IPersonalFindByIdDTO findByIdDTO(int id);
 }
