@@ -11,5 +11,7 @@ import java.util.Optional;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Employee findByEmployeeNumber(Integer employeeNumber);
+    @Query(value = "SELECT MAX(e.employeeNumber) FROM employee e")
+    int findMaxEmployeeNumber();
 
 }

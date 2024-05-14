@@ -14,9 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Employment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLOYMENT_ID")
-    private int employmentId;
+    private Integer employmentId;
 
     @Column(name = "EMPLOYMENT_CODE")
     private String employmentCode;
@@ -40,7 +40,7 @@ public class Employment {
     private Date lastReviewDate;
 
     @Column(name = "NUMBER_DAYS_REQUIREMENT_OF_WORKING_PER_MONTH")
-    private int daysWorkingPerMonth;
+    private Integer daysWorkingPerMonth;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PERSONAL_ID",  referencedColumnName = "PERSONAL_ID")

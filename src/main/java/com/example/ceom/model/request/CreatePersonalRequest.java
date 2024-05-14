@@ -39,7 +39,7 @@ public class CreatePersonalRequest {
 
     private int zip;
 
-    private boolean gender;
+    private String gender;
 
     private String email;
 
@@ -49,7 +49,7 @@ public class CreatePersonalRequest {
 
     private String ethnicity;
 
-    private boolean shareholderStatus;
+    private Boolean shareholderStatus;
 
 //    private List<EmploymentService> employmentList;
 

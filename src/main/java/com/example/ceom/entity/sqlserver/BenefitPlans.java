@@ -13,18 +13,18 @@ import java.util.List;
 @NoArgsConstructor
 public class BenefitPlans {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BENEFIT_PLANS_ID")
-    private int benefitPlanId;
+    private Integer benefitPlanId;
 
     @Column(name = "PLAN_NAME")
     private String planName;
 
     @Column(name = "DEDUCTABLE")
-    private int deductable;
+    private Integer deductable;
 
     @Column(name = "PERCENTAGE_COPAY")
-    private int percentageCoPay;
+    private Integer percentageCoPay;
 
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "benefitPlans", orphanRemoval = true)
 //    private List<Personal> personList = new ArrayList<>();

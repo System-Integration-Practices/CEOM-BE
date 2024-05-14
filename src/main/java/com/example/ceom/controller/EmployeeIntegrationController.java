@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/integration")
+@RequestMapping("/api/integration")
 @CrossOrigin(origins = "*")
 public class EmployeeIntegrationController {
     @Autowired
@@ -22,7 +22,7 @@ public class EmployeeIntegrationController {
     }
 
     @DeleteMapping("/delete/employee/{employeeNumber}/personal/{personalId}/employment/{employmentId}")
-    public ResponseEntity<String> delete(
+    public ResponseEntity<?> delete(
             @PathVariable Integer employeeNumber,
             @PathVariable Integer personalId,
             @PathVariable Integer employmentId) {
@@ -37,7 +37,7 @@ public class EmployeeIntegrationController {
                                    @PathVariable Integer personalId,
                                    @PathVariable Integer employmentId,
                                    @RequestBody CreateEmployeeIntegration request){
-        employeeIntegrationService.updateEmployeeIntegration(request,employeeNumber,personalId,employmentId);
-        return ResponseEntity.ok(request);
+        employeeIntegrationService.updateEmployeeIntegration(employeeNumber,personalId,employmentId,request);
+        return ResponseEntity.ok().build();
     }
 }

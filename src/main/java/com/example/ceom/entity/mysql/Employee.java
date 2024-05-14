@@ -12,9 +12,9 @@ import lombok.*;
 @Data
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Employee Number")
-    private int employeeNumber;
+    private Integer employeeNumber;
 
     @Column(name = "First Name")
     private String firstName;
@@ -23,13 +23,13 @@ public class Employee {
     private String lastName;
 
     @Column(name = "idEmployee")
-    private int idEmployee;
+    private Integer idEmployee;
 
     @Column(name = "Paid Last Year")
-    private double paidLastYear;
+    private Double paidLastYear;
 
     @Column(name = "Paid To Date")
-    private double paidToDate;
+    private Double paidToDate;
 
     @Column(name = "Pay Rate")
     private String payRate;
@@ -40,8 +40,10 @@ public class Employee {
     private PayRate payRates;
 
     @Column(name = "SSN")
-    private double ssn;
+    private Double ssn;
 
     @Column(name = "Vacation Days")
-    private int vacationDays;
+    private Integer vacationDays;
+
+
 }

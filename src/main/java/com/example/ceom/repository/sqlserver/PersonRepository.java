@@ -9,6 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Personal, Integer> {
-    @Query(value = "SELECT p FROM PERSONAL p WHERE p.personalId = (SELECT MAX(p.personalId) FROM PERSONAL p)")
-    Personal findLastPersonal();
+//    @Query(value = "SELECT p FROM PERSONAL p WHERE p.personalId = (SELECT MAX(p.personalId) FROM PERSONAL p)")
+//    Personal findLastPersonal();
+    @Query(value = "SELECT MAX(p.personalId) FROM Personal p")
+    int findMaxPersonalId();
 }

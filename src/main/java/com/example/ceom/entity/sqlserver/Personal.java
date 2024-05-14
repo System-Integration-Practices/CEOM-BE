@@ -7,17 +7,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "PERSONAL")
-@Getter
-@Setter
+@Entity(name = "Personal")
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Personal {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PERSONAL_ID")
-    private int personalId;
+    private Integer personalId;
 
     @Column(name = "CURRENT_FIRST_NAME")
     private String firstName;
@@ -50,10 +49,10 @@ public class Personal {
     private String country;
 
     @Column(name = "CURRENT_ZIP")
-    private int zip;
+    private Integer zip;
 
     @Column(name = "CURRENT_GENDER")
-    private boolean gender;
+    private String gender;
 
     @Column(name = "CURRENT_PERSONAL_EMAIL")
     private String email;
@@ -68,7 +67,7 @@ public class Personal {
     private String ethnicity;
 
     @Column(name = "SHAREHOLDER_STATUS")
-    private boolean shareholderStatus;
+    private Boolean shareholderStatus;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", orphanRemoval = true)
     private List<Employment> employmentList = new ArrayList<>();

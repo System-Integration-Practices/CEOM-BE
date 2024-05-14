@@ -16,6 +16,7 @@ public class BenefitPlansServiceImpl implements BenefitPlansService {
     @Override
     public BenefitPlans saveBenefitPlans(CreateBenefitPlans request) {
         BenefitPlans benefitPlans= new BenefitPlans();
+        benefitPlans.setBenefitPlanId(request.getBenefitPlanId());
         benefitPlans.setPlanName(request.getPlanName());
         benefitPlans.setDeductable(request.getDeductable());
         benefitPlans.setPercentageCoPay(request.getPercentageCoPay());
