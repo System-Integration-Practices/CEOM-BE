@@ -10,18 +10,18 @@ import java.util.List;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
-    @Query("SELECT e FROM employee e JOIN FETCH e.payRates")
+    @Query("SELECT e FROM Employee e JOIN FETCH e.payRates")
     List<Employee> fetchAll();
 
-    @Query("SELECT e FROM employee e JOIN FETCH e.idEmployee")
+    @Query("SELECT e FROM Employee e JOIN FETCH e.idEmployee")
     Employee fetchById(int id);
 
 
-    @Query("SELECT e FROM employee e JOIN FETCH e.payRates WHERE e.employeeNumber IN ?1")
+    @Query("SELECT e FROM Employee e JOIN FETCH e.payRates WHERE e.employeeNumber IN ?1")
     List<Employee> findByMultiplyIds(List<Integer> ids);
 
 
     @Modifying
-    @Query("DELETE FROM employee e WHERE e.employeeNumber > ?1")
+    @Query("DELETE FROM Employee e WHERE e.employeeNumber > ?1")
     void removeDataUnnecessary(int conditionNumber);
 }

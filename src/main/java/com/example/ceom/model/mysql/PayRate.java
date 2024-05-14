@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "pay rates")
+@Entity(name = "Pay Rates")
 @Getter
 @Setter
 @Builder
