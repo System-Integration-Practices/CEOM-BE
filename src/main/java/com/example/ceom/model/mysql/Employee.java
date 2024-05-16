@@ -14,7 +14,6 @@ import org.hibernate.annotations.FetchMode;
 //@Data
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Employee Number")
     private int employeeNumber;
 

@@ -9,6 +9,9 @@ import com.example.ceom.service.mysql.EmployeeService;
 import com.example.ceom.service.mysql.PayRateService;
 import com.example.ceom.service.sqlservice.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.query.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +26,7 @@ public class PersonalIntegrationController {
     private final PersonService personSqlServerService;
     private final PayRateService payRateService;
 
-    @GetMapping
+    @GetMapping("/async")
     @Transactional
     public void asyncData(){
         List<Personal> personalList = personSqlServerService.findAll();
@@ -90,16 +93,57 @@ public class PersonalIntegrationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> creaetThePersonal(@RequestBody PersonalDto personalDto){
+    public ResponseEntity<?> createThePersonalIntegration(@RequestBody PersonalDto personalDto){
         System.out.println(personalDto);
-        Employee employee = new Employee();
-        Personal personal = new Personal();
-        asyncPersonalEmployee(personalDto, personal, employee);
+        Employee employee = Employee.builder()
+                .firstName(personalDto.getFirstName())
+                .lastName(personalDto.getMiddleInitial() + " " + personalDto.getLastName())
+                .ssn(!(personalDto.getSsn() == null || personalDto.getSsn().isEmpty())?Double.parseDouble(personalDto.getSsn()):0)
+                .build();
+        Personal personal = Personal.builder()
+                .firstName(personalDto.getFirstName())
+                .lastName(personalDto.getLastName())
+                .middleInitial(personalDto.getMiddleInitial())
+                .ssn(personalDto.getSsn())
+                .email(personalDto.getEmail())
+                .city(personalDto.getCity())
+                .address1(personalDto.getAddress1())
+                .address2(personalDto.getAddress2())
+                .country(personalDto.getCountry())
+                .birthday(personalDto.getBirthday())
+                .zip(personalDto.getZip())
+                .driversLicense(personalDto.getDriversLicense())
+                .phoneNumber(personalDto.getPhoneNumber())
+                .ethnicity(personalDto.getEthnicity())
+                .maritalStatus(personalDto.getMaritalStatus())
+                .shareholderStatus(personalDto.isShareholderStatus())
+                .gender(personalDto.isGender())
+                .build();
         PayRate payRate = payRateService.findById(1);
         employee.setPayRates(payRate);
-        personSqlServerService.save(personal);
+        Personal savedPersonal = personSqlServerService.save(personal);
+        System.out.println(savedPersonal);
+        employee.setEmployeeNumber(savedPersonal.getPersonalId());
+        employee.setIdEmployee(savedPersonal.getPersonalId());
         employeeMySqlService.save(employee);
-        return null;
+        return ResponseEntity.ok("Create successfully");
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Personal>> getAllPersonal(
+            @RequestParam(name = "fullName", defaultValue = "") String fullName,
+            @RequestParam(name = "benefitPlanId", required = false)Integer benefitPlanId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int limit
+    ){
+        PageRequest pageRequest = PageRequest.of(
+                page, limit,
+                //Sort.by("createdAt").descending()
+                Sort.by("CURRENT_FIRST_NAME").ascending()
+        );
+        List<Personal> list = personSqlServerService.getAllProducts(fullName, benefitPlanId, pageRequest).getContent();
+
+        return ResponseEntity.ok(list);
     }
 
 

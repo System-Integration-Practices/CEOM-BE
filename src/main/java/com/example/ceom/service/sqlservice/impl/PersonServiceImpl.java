@@ -4,6 +4,8 @@ import com.example.ceom.model.sqlserver.Personal;
 import com.example.ceom.repository.sqlserver.PersonRepository;
 import com.example.ceom.service.sqlservice.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +23,11 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<Personal> findAll() {
         return personRepository.findAll();
+    }
+
+    @Override
+    public Page<Personal> getAllProducts(String fullName, Integer benefitPlanId, PageRequest pageRequest) {
+        return personRepository.searchPersonals(benefitPlanId, fullName, pageRequest);
     }
 
     @Override

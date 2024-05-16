@@ -1,0 +1,71 @@
+package com.example.ceom.response;
+
+import com.example.ceom.model.sqlserver.BenefitPlans;
+import com.example.ceom.model.sqlserver.Employment;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class PersonalResponse {
+    private int personalId;
+
+    @Column(name = "CURRENT_FIRST_NAME")
+    private String firstName;
+
+    @Column(name = "CURRENT_LAST_NAME")
+    private String lastName;
+
+    @Column(name = "CURRENT_MIDDLE_NAME")
+    private String middleInitial;
+
+    @Column(name = "BIRTH_DATE")
+    private Date birthday;
+
+    @Column(name = "SOCIAL_SECURITY_NUMBER")
+    private String ssn;
+
+    @Column(name = "DRIVERS_LICENSE")
+    private String driversLicense;
+
+    @Column(name = "CURRENT_ADDRESS_1")
+    private String address1;
+
+    @Column(name = "CURRENT_ADDRESS_2")
+    private String address2;
+
+    @Column(name = "CURRENT_CITY")
+    private String city;
+
+    @Column(name = "CURRENT_COUNTRY")
+    private String country;
+
+    @Column(name = "CURRENT_ZIP")
+    private int zip;
+
+    @Column(name = "CURRENT_GENDER")
+    private boolean gender;
+
+    @Column(name = "CURRENT_PERSONAL_EMAIL")
+    private String email;
+
+    @Column(name = "CURRENT_PHONE_NUMBER")
+    private String phoneNumber;
+
+    @Column(name = "CURRENT_MARITAL_STATUS")
+    private String maritalStatus;
+
+    @Column(name = "ETHNICITY")
+    private String ethnicity;
+
+    @Column(name = "SHAREHOLDER_STATUS")
+    private boolean shareholderStatus;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", orphanRemoval = true)
+    private List<Employment> employmentList = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BENEFIT_PLAN_ID",  referencedColumnName = "BENEFIT_PLANS_ID")
+    private BenefitPlans benefitPlans;
+}

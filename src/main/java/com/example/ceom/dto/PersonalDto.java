@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Date;
@@ -21,18 +23,25 @@ public class PersonalDto {
     private int personalId;
 
     @JsonProperty("firstName")
+    @NotBlank(message = "First name is required")
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 200 characters")
     private String firstName;
 
     @JsonProperty("lastName")
+    @NotBlank(message = "Last name is required")
+    @Size(min = 3, max = 200, message = "Name must be between 3 and 200 characters")
     private String lastName;
 
     @JsonProperty("middleInitial")
+    @NotBlank(message = "First name is required")
+    @Size(min = 3, max = 200, message = "Name must be between 3 and 200 characters")
     private String middleInitial;
 
     @JsonProperty("birthday")
     private Date birthday;
 
     @JsonProperty("ssn")
+    @NotBlank(message = "SSN is required")
     private String ssn;
 
     @JsonProperty("driversLicense")

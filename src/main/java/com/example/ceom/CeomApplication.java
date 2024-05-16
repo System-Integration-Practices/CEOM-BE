@@ -40,35 +40,6 @@ public class CeomApplication {
 	@Bean
 	public ApplicationRunner init() {
 		return args -> {
-//			List<NHANVIEN> NHANVIENList = NHANVIENRepository.fetchAll();
-//			List<nhanvien> nhanvienList = nhanvienRepository.fetchAll();
-//			List<MergeDto> mergeDtoList = NHANVIENList.stream()
-//					.flatMap(
-//							table1 -> nhanvienList.stream()
-//									.filter(table2-> table1.getMANHANVIEN() == table2.getMANHANVIEN())
-//									.map(table2 -> new MergeDto(table2.getMANHANVIEN(),
-//											table2.getHO(),
-//											table2.getTEN(),
-//											table2.getPhongban().getTENPHONGBAN(),
-//											table1.getLuongs().get(0).getLUONGCOBAN())))
-//					.toList();
-//			mergeDtoList.forEach(System.out::println);
-
-//			benefitPlansRepository.findAll().stream().forEach(System.out::println);
-//			System.out.println(employeeRepository.fetchById(1));
-
-//			System.out.println(payRateRepository.findById(1));
-//			employeeRepository.save(Employee.builder()
-//					.idEmployee(1)
-//							.lastName("roro123")
-//							.firstName("Kien")
-//							.ssn(1234)
-//							.payRates(payRateRepository.findById(1).get())
-//							.paidLastYear(12)
-//							.paidToDate(20)
-//					.build());
-			System.out.println("Hello Kienroro");
-//			payRateService.findAll().stream().forEach(System.out::println);
 		};
 	}
 
