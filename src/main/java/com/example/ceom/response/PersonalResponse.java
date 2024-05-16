@@ -1,71 +1,53 @@
 package com.example.ceom.response;
 
+import com.example.ceom.model.mysql.Employee;
 import com.example.ceom.model.sqlserver.BenefitPlans;
 import com.example.ceom.model.sqlserver.Employment;
+import com.example.ceom.model.sqlserver.Personal;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Setter
+@Getter
 public class PersonalResponse {
     private int personalId;
 
-    @Column(name = "CURRENT_FIRST_NAME")
     private String firstName;
 
-    @Column(name = "CURRENT_LAST_NAME")
     private String lastName;
 
-    @Column(name = "CURRENT_MIDDLE_NAME")
     private String middleInitial;
 
-    @Column(name = "BIRTH_DATE")
-    private Date birthday;
-
-    @Column(name = "SOCIAL_SECURITY_NUMBER")
-    private String ssn;
-
-    @Column(name = "DRIVERS_LICENSE")
-    private String driversLicense;
-
-    @Column(name = "CURRENT_ADDRESS_1")
-    private String address1;
-
-    @Column(name = "CURRENT_ADDRESS_2")
-    private String address2;
-
-    @Column(name = "CURRENT_CITY")
-    private String city;
-
-    @Column(name = "CURRENT_COUNTRY")
-    private String country;
-
-    @Column(name = "CURRENT_ZIP")
-    private int zip;
-
-    @Column(name = "CURRENT_GENDER")
     private boolean gender;
 
-    @Column(name = "CURRENT_PERSONAL_EMAIL")
-    private String email;
+    private int payAmount;
 
-    @Column(name = "CURRENT_PHONE_NUMBER")
-    private String phoneNumber;
+    private String planName;
 
-    @Column(name = "CURRENT_MARITAL_STATUS")
-    private String maritalStatus;
+    public static PersonalResponse fromPersonal(Personal personal){
+        PersonalResponse personalResponse = PersonalResponse.builder()
+                .personalId(personal.getPersonalId())
+                .firstName(personal.getFirstName())
+                .lastName(personal.getLastName())
+                .middleInitial(personal.getMiddleInitial())
+                .gender(personal.isGender())
+                .planName(personal.getBenefitPlans().getPlanName())
+                .build();
+        return personalResponse;
+    }
 
-    @Column(name = "ETHNICITY")
-    private String ethnicity;
-
-    @Column(name = "SHAREHOLDER_STATUS")
-    private boolean shareholderStatus;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "personal", orphanRemoval = true)
-    private List<Employment> employmentList = new ArrayList<>();
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "BENEFIT_PLAN_ID",  referencedColumnName = "BENEFIT_PLANS_ID")
-    private BenefitPlans benefitPlans;
+    public static PersonalResponse merge(PersonalResponse e1, Employee e2) {
+        if (e1.getPersonalId() != e2.getEmployeeNumber())
+            throw new IllegalArgumentException();
+        e1.setPayAmount(e2.getPayRates().getPayAmount());
+        return e1;
+    }
 }

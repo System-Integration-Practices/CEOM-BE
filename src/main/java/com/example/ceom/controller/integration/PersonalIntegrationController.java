@@ -5,11 +5,13 @@ import com.example.ceom.dto.PersonalDto;
 import com.example.ceom.model.mysql.Employee;
 import com.example.ceom.model.mysql.PayRate;
 import com.example.ceom.model.sqlserver.Personal;
+import com.example.ceom.response.PersonalListResponse;
+import com.example.ceom.response.PersonalResponse;
 import com.example.ceom.service.mysql.EmployeeService;
 import com.example.ceom.service.mysql.PayRateService;
 import com.example.ceom.service.sqlservice.PersonService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.query.Page;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/api/personal_integration")
@@ -130,7 +135,7 @@ public class PersonalIntegrationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Personal>> getAllPersonal(
+    public ResponseEntity<PersonalListResponse> getAllPersonal(
             @RequestParam(name = "fullName", defaultValue = "") String fullName,
             @RequestParam(name = "benefitPlanId", required = false)Integer benefitPlanId,
             @RequestParam(defaultValue = "0") int page,
@@ -141,9 +146,16 @@ public class PersonalIntegrationController {
                 //Sort.by("createdAt").descending()
                 Sort.by("CURRENT_FIRST_NAME").ascending()
         );
-        List<Personal> list = personSqlServerService.getAllProducts(fullName, benefitPlanId, pageRequest).getContent();
-
-        return ResponseEntity.ok(list);
+        Page<PersonalResponse> list = personSqlServerService.getAllProducts(fullName, benefitPlanId, pageRequest).map(PersonalResponse::fromPersonal);
+        List<PersonalResponse> result = list.getContent();
+        Set<Integer> ids = result.stream().map(PersonalResponse::getPersonalId).collect(Collectors.toSet());
+        List<Employee> employees = employeeMySqlService.findByMultipleIds(ids);
+        result.stream().filter(item -> ids.contains(item.getPersonalId()))
+        return ResponseEntity.ok(PersonalListResponse.builder()
+                        .personals(list.getContent())
+                        .totalPages(list.getTotalPages())
+                .build()
+        );
     }
 
 

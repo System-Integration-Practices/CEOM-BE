@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
@@ -18,7 +19,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 
     @Query("SELECT e FROM Employee e JOIN FETCH e.payRates WHERE e.employeeNumber IN ?1")
-    List<Employee> findByMultiplyIds(List<Integer> ids);
+    List<Employee> findByMultiplyIds(Set<Integer> ids);
 
 
     @Modifying

@@ -6,6 +6,9 @@ import com.example.ceom.service.mysql.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
@@ -24,5 +27,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void removeDataUnnecessary(int conditionNumber) {
         employeeRepository.removeDataUnnecessary(conditionNumber);
+    }
+
+    @Override
+    public List<Employee> findByMultipleIds(Set<Integer> ids) {
+        return employeeRepository.findByMultiplyIds(ids);
     }
 }
