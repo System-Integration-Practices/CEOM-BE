@@ -150,7 +150,18 @@ public class PersonalIntegrationController {
         List<PersonalResponse> result = list.getContent();
         Set<Integer> ids = result.stream().map(PersonalResponse::getPersonalId).collect(Collectors.toSet());
         List<Employee> employees = employeeMySqlService.findByMultipleIds(ids);
-        result.stream().filter(item -> ids.contains(item.getPersonalId()))
+        if(result.size() == employees.size()){
+            result = result.stream().flatMap(
+                    personal -> employees.stream()
+                            .filter(employee-> personal.getPersonalId() == employee.getEmployeeNumber())
+                            .map(employee -> {
+                                personal.setPayAmount(employee.getPayRates().getPayAmount());
+                                return personal;
+                            })
+            ).toList();
+        }else{
+            System.out.println("Conflict");
+        }
         return ResponseEntity.ok(PersonalListResponse.builder()
                         .personals(list.getContent())
                         .totalPages(list.getTotalPages())
