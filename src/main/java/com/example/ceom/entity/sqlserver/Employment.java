@@ -47,6 +47,6 @@ public class Employment {
     @JoinColumn(name = "PERSONAL_ID",  referencedColumnName = "PERSONAL_ID")
     private Personal personal;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employment", orphanRemoval = true)
-    private List<JobHistory> jobHistories = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employment", orphanRemoval = true)
+//    private List<JobHistory> jobHistories = new ArrayList<>();
 }

@@ -4,14 +4,13 @@ import com.example.ceom.entity.mysql.Employee;
 import com.example.ceom.entity.mysql.PayRate;
 import com.example.ceom.entity.sqlserver.BenefitPlans;
 import com.example.ceom.entity.sqlserver.Employment;
+import com.example.ceom.entity.sqlserver.EmploymentWorkingTime;
 import com.example.ceom.entity.sqlserver.Personal;
 import com.example.ceom.exception.NotFoundException;
 import com.example.ceom.model.request.CreateEmployeeIntegration;
 import com.example.ceom.repository.mysql.EmployeeRepository;
 import com.example.ceom.repository.mysql.PayRateRepository;
-import com.example.ceom.repository.sqlserver.BenefitPlansRepository;
-import com.example.ceom.repository.sqlserver.EmploymentRepository;
-import com.example.ceom.repository.sqlserver.PersonRepository;
+import com.example.ceom.repository.sqlserver.*;
 import com.example.ceom.service.sqlserver.EmployeeIntegrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +30,10 @@ public class EmployeeIntegrationServiceImpl implements EmployeeIntegrationServic
     private BenefitPlansRepository benefitPlansRepository;
     @Autowired
     private PayRateRepository payRateRepository;
+    @Autowired
+    private EmploymentWorkingTimeRepository employmentWorkingTimeRepository;
+    @Autowired
+    private JobHistoryRepository jobHistoryRepository;
 
     @Transactional
     public void saveEmployeeIntegration(CreateEmployeeIntegration request) {
@@ -62,7 +65,7 @@ public class EmployeeIntegrationServiceImpl implements EmployeeIntegrationServic
         personal.setMaritalStatus(request.getPersonal().getMaritalStatus());
         personal.setEthnicity(request.getPersonal().getEthnicity());
         personal.setShareholderStatus(request.getPersonal().isShareholderStatus());
-        BenefitPlans benefitPlans = benefitPlansRepository.findById(request.getPersonal().getBenefitPlanId()).orElseThrow(() -> new NotFoundException("Not found benefit id"));
+        BenefitPlans benefitPlans = benefitPlansRepository.findById(1).orElseThrow(() -> new NotFoundException("Not found benefit id"));
         personal.setBenefitPlans(benefitPlans);
         personRepository.save(personal);
 
@@ -83,7 +86,7 @@ public class EmployeeIntegrationServiceImpl implements EmployeeIntegrationServic
         employee.setPaidLastYear(request.getEmployee().getPaidLastYear());
         employee.setPaidToDate(request.getEmployee().getPaidToDate());
         employee.setPayRate(request.getEmployee().getPayRate());
-        PayRate payRate = payRateRepository.findById(request.getEmployee().getIdPayRate()).orElseThrow(() -> new NotFoundException("Not found payRate id"));
+        PayRate payRate = payRateRepository.findById(1).orElseThrow(() -> new NotFoundException("Not found payRate id"));
         employee.setPayRates(payRate);
         employee.setSsn(request.getEmployee().getSsn());
         employee.setVacationDays(request.getEmployee().getVacationDays());
@@ -115,10 +118,8 @@ public class EmployeeIntegrationServiceImpl implements EmployeeIntegrationServic
     //Delete
     @Override
     public void deleteEmployeeIntegration(int personalId, int employmentId) {
-        Employee employee = employeeRepository.findById(employmentId).orElseThrow(() -> new NotFoundException("Not found employee number" + employmentId));
-        if (employee != null) {
-            employeeRepository.delete(employee);
-        }
+        jobHistoryRepository.deleteByEmploymentId(employmentId);
+        employmentWorkingTimeRepository.deleteByEmploymentId(employmentId);
 
         Employment employment = employmentRepository.findById(employmentId).orElseThrow(() -> new NotFoundException("Not found employment id" + employmentId));
         if (employment != null) {
@@ -130,28 +131,18 @@ public class EmployeeIntegrationServiceImpl implements EmployeeIntegrationServic
             personRepository.delete(personal);
         }
 
+        Employee employee = employeeRepository.findById(employmentId).orElseThrow(() -> new NotFoundException("Not found employee number" + employmentId));
+        if (employee != null) {
+            employeeRepository.delete(employee);
+        }
     }
 
 
     //Update
     @Override
     public void updateEmployeeIntegration(CreateEmployeeIntegration request, int employeeNumber, int personalId, int employmentId) {
-        Employee employee;
-        employee = employeeRepository.findById(request.getEmployee().getIdEmployee()).orElseThrow(() -> new NotFoundException("error"));
-        employee.setFirstName(request.getPersonal().getFirstName());
-        employee.setLastName(request.getPersonal().getMiddleName() + request.getPersonal().getLastName());
-        employee.setIdEmployee(request.getEmployee().getIdEmployee());
-        employee.setPaidLastYear(request.getEmployee().getPaidLastYear());
-        employee.setPaidToDate(request.getEmployee().getPaidToDate());
-        employee.setPayRate(request.getEmployee().getPayRate());
-        PayRate payRate = payRateRepository.findById(request.getEmployee().getIdPayRate()).orElseThrow(() -> new NotFoundException("Not found payRate id"));
-        employee.setPayRates(payRate);
-        employee.setSsn(request.getEmployee().getSsn());
-        employee.setVacationDays(request.getEmployee().getVacationDays());
-        employeeRepository.save(employee);
 
-        Personal personal;
-        personal = personRepository.findById(request.getPersonal().getPersonalId()).orElseThrow(() -> new NotFoundException("error"));
+        Personal personal = personRepository.findById(personalId).orElseThrow(() -> new NotFoundException("Not Found personal"));
         personal.setFirstName(request.getPersonal().getFirstName());
         personal.setLastName(request.getPersonal().getLastName());
         personal.setMiddleInitial(request.getPersonal().getMiddleName());
@@ -173,7 +164,20 @@ public class EmployeeIntegrationServiceImpl implements EmployeeIntegrationServic
         personal.setBenefitPlans(benefitPlans);
         personRepository.save(personal);
 
-        Employment employment = employmentRepository.findById(request.getEmployment().getEmploymentId()).orElseThrow(() -> new NotFoundException("error"));
+        Employee employee = employeeRepository.findById(employeeNumber).orElseThrow(() -> new NotFoundException("Not Found employee"));
+        employee.setFirstName(request.getPersonal().getFirstName());
+        employee.setLastName(request.getPersonal().getMiddleName() + request.getPersonal().getLastName());
+        employee.setIdEmployee(request.getEmployee().getIdEmployee());
+        employee.setPaidLastYear(request.getEmployee().getPaidLastYear());
+        employee.setPaidToDate(request.getEmployee().getPaidToDate());
+        employee.setPayRate(request.getEmployee().getPayRate());
+        PayRate payRate = payRateRepository.findById(request.getEmployee().getIdPayRate()).orElseThrow(() -> new NotFoundException("Not found payRate id"));
+        employee.setPayRates(payRate);
+        employee.setSsn(request.getEmployee().getSsn());
+        employee.setVacationDays(request.getEmployee().getVacationDays());
+        employeeRepository.save(employee);
+
+        Employment employment = employmentRepository.findById(employmentId).orElseThrow(() -> new NotFoundException("Not Found employment"));
         employment.setEmploymentCode(request.getEmployment().getEmploymentCode());
         employment.setEmploymentStatus(request.getEmployment().getEmploymentStatus());
         employment.setHireDateForWorking(request.getEmployment().getHireDateForWorking());
@@ -182,7 +186,7 @@ public class EmployeeIntegrationServiceImpl implements EmployeeIntegrationServic
         employment.setRehireDateForWorking(request.getEmployment().getRehireDateForWorking());
         employment.setLastReviewDate(request.getEmployment().getLastReviewDate());
         employment.setDaysWorkingPerMonth(request.getEmployment().getDaysWorkingPerMonth());
-        Personal personal1 = personRepository.findById(request.getPersonal().getPersonalId()).orElseThrow();
+        Personal personal1 = personRepository.findById(personalId).orElseThrow();
         employment.setPersonal(personal1);
         employmentRepository.save(employment);
     }

@@ -15,7 +15,7 @@ public interface IPersonalFindByIdDTO {
 
     String getSOCIAL_SECURITY_NUMBER();
 
-    String getDRIVER_LICENSE();
+    String getDRIVERS_LICENSE();
 
     String getCURRENT_ADDRESS_1();
 

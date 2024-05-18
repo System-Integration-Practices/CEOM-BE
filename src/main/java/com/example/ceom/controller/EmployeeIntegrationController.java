@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/integration")
+@RequestMapping("/api/integration")
 @CrossOrigin(origins = "*")
 public class EmployeeIntegrationController {
     @Autowired
@@ -21,7 +21,8 @@ public class EmployeeIntegrationController {
         return ResponseEntity.ok(request);
     }
 
-    @PutMapping("/update/{employeeNumber}/{personalId}/{employmentId}")
+    @PutMapping("/update/employee/{employeeNumber}/personal/{personalId}/employment/{employmentId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?>update(@PathVariable int employeeNumber,
                                    @PathVariable int personalId,
                                    @PathVariable int employmentId,

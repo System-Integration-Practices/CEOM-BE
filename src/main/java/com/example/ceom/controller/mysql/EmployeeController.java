@@ -20,21 +20,22 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping("/create")
-    public ResponseEntity<Employee>saveEmployee(@RequestBody Employee employee){
+    public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
         employeeService.saveEmployee(employee);
         return ResponseEntity.ok(employee);
     }
+
     @GetMapping("/list")
-    public ResponseEntity<List<Employee>>listEmployee(){
-        List<Employee>employees=employeeService.employeeList();
+    public ResponseEntity<List<Employee>> listEmployee() {
+        List<Employee> employees = employeeService.employeeList();
         return ResponseEntity.ok(employees);
     }
 
     @GetMapping("/getEmployeeDTOById/{id}")
-    public ResponseEntity<IEmployeeFindByIdDTO> findEmployeeDTOById(@PathVariable int id){
+    public ResponseEntity<IEmployeeFindByIdDTO> findEmployeeDTOById(@PathVariable int id) {
         IEmployeeFindByIdDTO employeeDTO = employeeService.findEmployeeDTO(id);
-        if (employeeDTO == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (employeeDTO == null) {
+            return new ResponseEntity<>(null, HttpStatus.OK);
         }
         return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
     }
