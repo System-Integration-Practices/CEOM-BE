@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
-@RequestMapping("/api/personal_integration")
+@RequestMapping("${api.prefix}/personal_integration")
 @RequiredArgsConstructor
 public class PersonalIntegrationController {
     private final EmployeeService employeeMySqlService;

@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,11 +25,8 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "fullname", length = 100)
     private String fullName;
 
-    @Column(name = "phone_number", length = 10, nullable = false)
-    private String phoneNumber;
-
-    @Column(name = "address", length = 200)
-    private String address;
+    @Column(name = "user_name", length = 255, nullable = false)
+    private String userName;
 
     @Column(name = "password", length = 200, nullable = false)
     private String password;
@@ -38,18 +34,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "is_active")
     private boolean active;
 
-    @Column(name = "date_of_birth")
-    private Date dateOfBirth;
-
-    @Column(name = "facebook_account_id")
-    private int facebookAccountId;
-
-    @Column(name = "google_account_id")
-    private int googleAccountId;
-
     @ManyToOne
     @JoinColumn(name = "role_id")
-    private com.project.shopapp.models.Role role;
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -61,7 +48,7 @@ public class User extends BaseEntity implements UserDetails {
     }
     @Override
     public String getUsername() {
-        return phoneNumber;
+        return userName;
     }
 
     @Override
