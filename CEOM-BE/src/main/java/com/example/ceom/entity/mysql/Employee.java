@@ -26,10 +26,10 @@ public class Employee {
     private Integer idEmployee;
 
     @Column(name = "Paid Last Year")
-    private Double paidLastYear;
+    private String paidLastYear;
 
     @Column(name = "Paid To Date")
-    private Double paidToDate;
+    private String paidToDate;
 
     @Column(name = "Pay Rate")
     private String payRate;
