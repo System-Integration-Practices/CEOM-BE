@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 public interface EmploymentWorkingTimeRepository extends CrudRepository<EmploymentWorkingTime, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM EMPLOYMENT_WORKING_TIME WHERE EMPLOYMENT_ID = :id", nativeQuery = true)
+    @Query(value = "DELETE EMPLOYMENT_WORKING_TIME WHERE EMPLOYMENT_ID = :id", nativeQuery = true)
     void deleteByEmploymentId(@Param("id") int id);
 }

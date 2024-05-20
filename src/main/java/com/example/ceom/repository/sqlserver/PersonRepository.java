@@ -2,6 +2,7 @@ package com.example.ceom.repository.sqlserver;
 
 import com.example.ceom.dto.IPersonalDTO;
 import com.example.ceom.dto.IPersonalFindByIdDTO;
+import com.example.ceom.dto.IPersonalSyncDTO;
 import com.example.ceom.entity.sqlserver.Personal;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -54,4 +56,10 @@ public interface PersonRepository extends JpaRepository<Personal, Integer> {
             "p.BENEFIT_PLAN_ID\n" +
             "FROM PERSONAL p WHERE p.PERSONAL_ID = :id", nativeQuery = true)
     IPersonalFindByIdDTO findPersonalDTOById(@Param("id") int id);
+
+    @Query(value = "SELECT p.CURRENT_FIRST_NAME, p.CURRENT_MIDDLE_NAME, p.CURRENT_LAST_NAME, e.EMPLOYMENT_ID\n" +
+            "FROM PERSONAL p \n" +
+            "JOIN EMPLOYMENT e\n" +
+            "ON e.PERSONAL_ID = p.PERSONAL_ID", nativeQuery = true)
+    List<IPersonalSyncDTO> findAllPersonalSyncDTO();
 }

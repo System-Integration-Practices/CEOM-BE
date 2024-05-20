@@ -10,6 +10,6 @@ import org.springframework.data.repository.query.Param;
 public interface JobHistoryRepository extends JpaRepository<JobHistory, Integer> {
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM JOB_HISTORY WHERE EMPLOYMENT_ID = :id", nativeQuery = true)
+    @Query(value = "DELETE JOB_HISTORY WHERE EMPLOYMENT_ID = :id", nativeQuery = true)
     void deleteByEmploymentId(@Param("id") int id);
 }

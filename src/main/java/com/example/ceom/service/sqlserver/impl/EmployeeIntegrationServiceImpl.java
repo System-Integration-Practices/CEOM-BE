@@ -118,13 +118,14 @@ public class EmployeeIntegrationServiceImpl implements EmployeeIntegrationServic
     //Delete
     @Override
     public void deleteEmployeeIntegration(int personalId, int employmentId) {
-        jobHistoryRepository.deleteByEmploymentId(employmentId);
-        employmentWorkingTimeRepository.deleteByEmploymentId(employmentId);
 
-        Employment employment = employmentRepository.findById(employmentId).orElseThrow(() -> new NotFoundException("Not found employment id" + employmentId));
-        if (employment != null) {
-            employmentRepository.delete(employment);
+        List<Employment> employmentList = employmentRepository.findAllEmploymentByPersonalId(personalId);
+        for (Employment employment : employmentList) {
+            jobHistoryRepository.deleteByEmploymentId(employment.getEmploymentId());
+            employmentWorkingTimeRepository.deleteByEmploymentId(employment.getEmploymentId());
         }
+
+        employmentRepository.deleteEmploymentByPersonalId(personalId);
 
         Personal personal = personRepository.findById(personalId).orElseThrow(() -> new NotFoundException("Not found personal id" + personalId));
         if (personal != null) {
