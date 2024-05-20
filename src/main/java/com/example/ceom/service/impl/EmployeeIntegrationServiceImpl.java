@@ -85,11 +85,28 @@ public class EmployeeIntegrationServiceImpl implements EmployeeIntegrationServic
     }
 
     public void deleteEmployeeIntegration(Integer employeeNumber, Integer personalId, Integer employmentId) {
-        personRepository.findById(personalId).ifPresent(personal -> personRepository.delete(personal));
-        employmentRepository.findById(employmentId).ifPresent(employment -> employmentRepository.delete(employment));
-        Employee employee = employeeRepository.findById(employeeNumber).orElseThrow(() -> new NotFoundException("Not Found"));
-        employeeRepository.delete(employee);
+        personRepository.findById(personalId).ifPresentOrElse(
+                personal -> personRepository.delete(personal),
+                () -> {
+                    throw new RuntimeException("Not found personalId: " + personalId);
+                }
+        );
+
+        employmentRepository.findById(employmentId).ifPresentOrElse(
+                employment -> employmentRepository.delete(employment),
+                () -> {
+                    throw new RuntimeException("Not found employmentId: " + employmentId);
+                }
+        );
+
+        boolean employeeExists = employeeRepository.existsByEmployeeNumber(employeeNumber);
+        if (employeeExists) {
+            employeeRepository.deleteByEmployeeNumber(employeeNumber);
+        } else {
+            throw new RuntimeException("Not found EmployeeNumber: " + employeeNumber);
+        }
     }
+
 
     @Override
     public void updateEmployeeIntegration(Integer employeeNumber, Integer personalId, Integer employmentId, CreateEmployeeIntegration request) {
