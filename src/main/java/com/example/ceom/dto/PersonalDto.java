@@ -19,20 +19,20 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class PersonalDto {
-    @JsonProperty("personalId")
+    @JsonProperty("personal_id")
     private int personalId;
 
-    @JsonProperty("firstName")
+    @JsonProperty("first_name")
     @NotBlank(message = "First name is required")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 200 characters")
     private String firstName;
 
-    @JsonProperty("lastName")
+    @JsonProperty("last_name")
     @NotBlank(message = "Last name is required")
     @Size(min = 3, max = 200, message = "Name must be between 3 and 200 characters")
     private String lastName;
 
-    @JsonProperty("middleInitial")
+    @JsonProperty("middle_initial")
     @NotBlank(message = "First name is required")
     @Size(min = 3, max = 200, message = "Name must be between 3 and 200 characters")
     private String middleInitial;
@@ -44,7 +44,7 @@ public class PersonalDto {
     @NotBlank(message = "SSN is required")
     private String ssn;
 
-    @JsonProperty("driversLicense")
+    @JsonProperty("drivers_license")
     private String driversLicense;
 
     @JsonProperty("address1")
@@ -68,21 +68,30 @@ public class PersonalDto {
     @JsonProperty("email")
     private String email;
 
-    @JsonProperty("phoneNumber")
+    @JsonProperty("phone_number")
     private String phoneNumber;
 
-    @JsonProperty("maritalStatus")
+    @JsonProperty("marital_status")
     private String maritalStatus;
 
     @JsonProperty("ethnicity")
     private String ethnicity;
 
-    @JsonProperty("shareholderStatus")
+    @JsonProperty("shareholder_status")
     private boolean shareholderStatus;
 
-    @JsonProperty("benefitPlansId")
+    @JsonProperty("benefit_plans_id")
     private int benefitPlansId;
 
-    @JsonProperty("payRatesId")
+    @JsonProperty("pay_pates_id")
     private int payRatesId;
+
+    @JsonProperty("pay_last_year")
+    private double paidLastYear;
+
+    @JsonProperty("paid_to_date")
+    private double paidToDate;
+
+    @Column(name = "vacation_days")
+    private int vacationDays;
 }

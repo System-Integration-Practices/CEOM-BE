@@ -19,7 +19,7 @@ public class UserResponse {
     @JsonProperty("fullname")
     private String fullName;
 
-    @JsonProperty("phone_number")
+    @JsonProperty("username")
     private String userName;
 
     @JsonProperty("is_active")

@@ -26,12 +26,17 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Page<Personal> getAllProducts(String fullName, Integer benefitPlanId, PageRequest pageRequest) {
+    public Page<Personal> getPersonalsByFullNameOrBenefitPlan(String fullName, Integer benefitPlanId, PageRequest pageRequest) {
         return personRepository.searchPersonals(benefitPlanId, fullName, pageRequest);
     }
 
     @Override
     public Personal findById(int id) {
         return personRepository.findById(id).get();
+    }
+
+    @Override
+    public Page<Personal> getPersonalsByFullNameOrMonth(String fullName, int month, PageRequest pageRequest) {
+        return personRepository.searchPersonalsByMonth(fullName, month, pageRequest);
     }
 }

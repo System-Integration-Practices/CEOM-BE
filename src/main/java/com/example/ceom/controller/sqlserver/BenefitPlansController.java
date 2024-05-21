@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/benefit_plans")
+@RequestMapping("${api.prefix}/benefit_plans")
 @RequiredArgsConstructor
 public class BenefitPlansController {
     private final BenefitPlansService benefitPlansService;

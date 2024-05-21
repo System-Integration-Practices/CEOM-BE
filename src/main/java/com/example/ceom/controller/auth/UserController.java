@@ -10,6 +10,7 @@ import com.example.ceom.response.UserResponse;
 import com.example.ceom.service.auth.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("${api.prefix}/users")
 @RequiredArgsConstructor
+//@CrossOrigin(origins = "http://localhost:4000")
 public class UserController {
     private final IUserService userService;
 
@@ -50,7 +52,7 @@ public class UserController {
             User user = userService.createUser(userDTO);
             registerResponse.setMessage("Register successfully");
             registerResponse.setUser(user);
-            return ResponseEntity.ok(registerResponse);
+            return ResponseEntity.status(HttpStatus.CREATED).body(registerResponse);
         } catch (Exception e) {
             registerResponse.setMessage(e.getMessage());
             return ResponseEntity.badRequest().body(registerResponse);
@@ -77,7 +79,7 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(
                     LoginResponse.builder()
-                            .message(String.format("Login failed: {0}", e.getMessage()))
+                            .message(String.format("Login failed: %s", e.getMessage()))
                             .build()
             );
         }

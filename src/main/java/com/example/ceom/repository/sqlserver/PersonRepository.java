@@ -30,6 +30,20 @@ public interface PersonRepository extends JpaRepository<Personal, Integer> {
              Pageable pageable
     );
 
+    @Query(value = "SELECT * " +
+            "FROM PERSONAL e " +
+            "LEFT JOIN BENEFIT_PLANS bp " +
+            "ON e.BENEFIT_PLAN_ID  = bp.BENEFIT_PLANS_ID " +
+            "WHERE  (:fullName IS NULL OR concat_ws(' ',e.CURRENT_FIRST_NAME ,e.CURRENT_MIDDLE_NAME , e.CURRENT_LAST_NAME) LIKE CONCAT('%', :fullName, '%')) " +
+            "AND (:month IS NULL OR MONTH(e.BIRTH_DATE) = :month)",
+            nativeQuery = true
+    )
+    Page<Personal> searchPersonalsByMonth(
+            @Param("fullName") String fullName,
+            @Param("month") Integer month,
+            Pageable pageable
+    );
+
 //    SELECT *
 //    FROM PERSONAL e
 //    LEFT JOIN BENEFIT_PLANS bp

@@ -11,8 +11,8 @@ import java.util.List;
 @Data
 @Builder
 @NoArgsConstructor
-public class PersonalListResponse {
-    private List<?> personals;
+public class EmployeeListResponse {
+    private List<EmployeeResponse> employees;
     private int totalPages;
     private int currentPage;
     private int itemPerPage;

@@ -32,7 +32,9 @@ public class PersonalResponse {
 
     private String planName;
 
-    public static PersonalResponse fromPersonal(Personal personal){
+    private String payRateName;
+
+    public static PersonalResponse fromPersonal(Personal personal) {
         PersonalResponse personalResponse = PersonalResponse.builder()
                 .personalId(personal.getPersonalId())
                 .firstName(personal.getFirstName())

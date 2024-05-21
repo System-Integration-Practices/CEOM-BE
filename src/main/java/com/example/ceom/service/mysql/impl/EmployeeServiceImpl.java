@@ -4,6 +4,8 @@ import com.example.ceom.model.mysql.Employee;
 import com.example.ceom.repository.mysql.EmployeeRepository;
 import com.example.ceom.service.mysql.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,5 +34,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> findByMultipleIds(Set<Integer> ids) {
         return employeeRepository.findByMultiplyIds(ids);
+    }
+
+    @Override
+    public Page<Employee> getEmployeesByFullNameOrPayRate(String fullName, PageRequest pageRequest) {
+        return employeeRepository.searchEmployees( fullName, pageRequest);
     }
 }

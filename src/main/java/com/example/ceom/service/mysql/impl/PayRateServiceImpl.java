@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class PayRateServiceImpl implements PayRateService {
     }
 
     @Override
-    public PayRate findById(int id) {
-        return payRateRepository.findById(id).get();
+    public Optional<PayRate> findById(int id) {
+        return payRateRepository.findById(id);
     }
 }

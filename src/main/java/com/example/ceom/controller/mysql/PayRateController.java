@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/pay_rate")
+@RequestMapping("${api.prefix}/pay_rate")
 @RequiredArgsConstructor
 public class PayRateController {
     private final PayRateService payRateService;

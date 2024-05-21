@@ -10,6 +10,8 @@ public interface PersonService {
     Personal save(Personal personal);
     List<Personal> findAll();
 
-    Page<Personal> getAllProducts(String fullName, Integer benefitPlanId, PageRequest pageRequest);
+    Page<Personal> getPersonalsByFullNameOrBenefitPlan(String fullName, Integer benefitPlanId, PageRequest pageRequest);
     Personal findById(int id);
+
+    Page<Personal> getPersonalsByFullNameOrMonth(String fullName, int month, PageRequest pageRequest);
 }
